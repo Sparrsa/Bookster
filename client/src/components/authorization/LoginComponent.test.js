@@ -1,13 +1,14 @@
-import { screen, render, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { LoginComponent } from "./LoginComponent";
 
 test("Should login a user and store the JWT token", async () => {
-  // Mock the server response to return a JWT token
-  const mockAccessToken = "mocked-access-token";
-  jest.spyOn(global, "fetch").mockResolvedValue({
-    ok: true,
-    json: () => Promise.resolve({ accessToken: mockAccessToken }),
-  });
+  // Mock the fetch function
+  jest.spyOn(global, "fetch").mockImplementationOnce(() =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ accessToken: "mocked-access-token" }),
+    })
+  );
 
   render(<LoginComponent />);
 
@@ -20,8 +21,11 @@ test("Should login a user and store the JWT token", async () => {
 
   fireEvent.click(submitButton);
 
+  const successMessage = await screen.findByText("Successfully signed in");
+  expect(successMessage).toBeInTheDocument();
+
   // Check if the JWT token is stored in localStorage
-  expect(localStorage.getItem("accessToken")).toEqual(mockAccessToken);
+  expect(localStorage.getItem("accessToken")).toEqual("mocked-access-token");
 
   // Restore the original fetch function
   global.fetch.mockRestore();

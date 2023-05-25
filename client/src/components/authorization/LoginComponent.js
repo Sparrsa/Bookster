@@ -7,7 +7,7 @@ export function LoginComponent() {
 
   const loginUser = async () => {
     try {
-      const response = await fetch("http:127.0.0.1:3000/auth/login", {
+      const response = await fetch("http://127.0.0.1:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -43,8 +43,6 @@ export function LoginComponent() {
   // Retrieve the accessToken from localStorage
   const accessToken = localStorage.getItem("accessToken");
 
-  console.log(accessToken);
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -70,8 +68,9 @@ export function LoginComponent() {
 
         {loginStatus === "failure" && <p>Login failed. Please try again</p>}
       </form>
+
+      {accessToken && <p>Access Token: {accessToken}</p>}
+      {/* Use the accessToken for other functionality */}
     </div>
   );
 }
-
-/// Koppla så att registrerade användare och inloggade användare får en jwt. Kanske redan fungerar
