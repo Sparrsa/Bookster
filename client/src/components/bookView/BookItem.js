@@ -14,8 +14,10 @@ export function BookItem({ book, handleOrderBook }) {
   };
 
   const handleOrder = () => {
-    handleOrderBook({ ...book, quantity: orderedQuantity });
-    setOrderedQuantity(0);
+    if (orderedQuantity > 0) {
+      handleOrderBook({ ...book, quantity: orderedQuantity });
+      setOrderedQuantity(0);
+    }
   };
 
   return (

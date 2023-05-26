@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { LoginComponent } from "../components/authorization/LoginComponent";
-import { RegisterComponent } from "../components/authorization/RegisterComponent";
+import { Login } from "../components/authorization/LoginComponent";
+import { Register } from "../components/authorization/RegisterComponent";
 import { BookList } from "../components/bookView/BookList";
 
 const routes = [
@@ -10,12 +10,12 @@ const routes = [
   },
   {
     path: "/login",
-    element: <LoginComponent />,
+    element: <Login />,
     authRedirect: true,
   },
   {
     path: "/register",
-    element: <RegisterComponent />,
+    element: <Register />,
     authRedirect: true,
   },
   {

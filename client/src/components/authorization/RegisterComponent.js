@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function RegisterComponent() {
+export function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [registrationStatus, setRegistrationStatus] = useState(null);
@@ -41,6 +41,7 @@ export function RegisterComponent() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>Register</h2>
       <label htmlFor="username-input">Username:</label>
       <input
         id="username-input"
@@ -58,6 +59,9 @@ export function RegisterComponent() {
       />
 
       <button type="submit">Register new account</button>
+      <p>
+        Already have an account? Sign in <a href="/login">here!</a>
+      </p>
 
       {registrationStatus === "success" && <p>Account successfully created</p>}
 

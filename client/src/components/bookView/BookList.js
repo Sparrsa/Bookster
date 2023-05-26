@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { BookItem } from "./BookItem";
-import { Navigate } from "react-router-dom";
+import { SignOut } from "../abstract/SignOutComponent";
+import { SearchBook } from "../abstract/SearchBookComponent";
 
 export function BookList() {
   const [books, setBooks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -20,7 +22,7 @@ export function BookList() {
   }, []);
 
   const handleOrderBook = async (book) => {
-    const response = await fetch("http://localhost:3000/library/buyBook", {
+    const response = await fetch("http://localhost:3000/library/books", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,21 +39,27 @@ export function BookList() {
     }
   };
 
-  const handleSignOut = async () => {
-    // göra test, flytta sign out logik till en egen komponent
-    localStorage.removeItem("accessToken");
-    window.location.reload();
-
-    // return <Navigate to="/login" />;
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
   };
+
+  const filteredBooks = searchQuery
+    ? books.filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : books;
 
   return (
     <div>
       <h1>Bookster</h1>
-      {books.map((book) => (
+      <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
+      {filteredBooks.map((book) => (
         <BookItem key={book.id} book={book} handleOrderBook={handleOrderBook} />
       ))}
-      <button onClick={handleSignOut}>Sign Out</button>
+      <div>
+        <p>Browsing as user </p>
+        <button onClick={SignOut}>Sign Out</button>
+      </div>
     </div>
   );
 }

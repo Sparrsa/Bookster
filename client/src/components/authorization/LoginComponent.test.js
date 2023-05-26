@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { LoginComponent } from "./LoginComponent";
+import { Login } from "./LoginComponent";
 
 test("Should login a user and store the JWT token", async () => {
-  // Mock the fetch function
+  // Testar inlogg med en mockfunction
   jest.spyOn(global, "fetch").mockImplementationOnce(() =>
     Promise.resolve({
       ok: true,
@@ -10,11 +10,11 @@ test("Should login a user and store the JWT token", async () => {
     })
   );
 
-  render(<LoginComponent />);
+  render(<Login />);
 
   const usernameInput = screen.getByLabelText("Username:");
   const passwordInput = screen.getByLabelText("Password:");
-  const submitButton = screen.getByText("Login");
+  const submitButton = screen.getByText("Sign in");
 
   fireEvent.change(usernameInput, { target: { value: "testuser" } });
   fireEvent.change(passwordInput, { target: { value: "testpassword" } });
@@ -32,11 +32,11 @@ test("Should login a user and store the JWT token", async () => {
 });
 
 test("Login failed with incorrect credentials", async () => {
-  render(<LoginComponent />);
+  render(<Login />);
 
   const usernameInput = screen.getByLabelText("Username:");
   const passwordInput = screen.getByLabelText("Password:");
-  const submitButton = screen.getByText("Login");
+  const submitButton = screen.getByText("Sign in");
 
   fireEvent.change(usernameInput, { target: { value: "invaliduser" } });
   fireEvent.change(passwordInput, { target: { value: "invalidpassword" } });

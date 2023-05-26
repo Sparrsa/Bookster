@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { RegisterComponent } from "./RegisterComponent";
+import { Register } from "./RegisterComponent";
 
 test("Should register a new user", async () => {
-  render(<RegisterComponent />);
+  render(<Register />);
 
   const usernameInput = screen.getByLabelText("Username:");
   const passwordInput = screen.getByLabelText("Password:");
@@ -20,7 +20,7 @@ test("Should register a new user", async () => {
 });
 
 test("Username and password can't be under 4 characters", () => {
-  render(<RegisterComponent />);
+  render(<Register />);
 
   const usernameInput = screen.getByLabelText("Username:");
   const passwordInput = screen.getByLabelText("Password:");
