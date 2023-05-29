@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Login } from "./LoginComponent";
+import { MemoryRouter } from "react-router-dom";
 
 test("Should login a user and store the JWT token", async () => {
   // Testar inlogg med en mockfunction
@@ -9,9 +10,11 @@ test("Should login a user and store the JWT token", async () => {
       json: () => Promise.resolve({ accessToken: "mocked-access-token" }),
     })
   );
-
-  render(<Login />);
-
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
   const usernameInput = screen.getByLabelText("Username:");
   const passwordInput = screen.getByLabelText("Password:");
   const submitButton = screen.getByText("Sign in");
@@ -32,7 +35,11 @@ test("Should login a user and store the JWT token", async () => {
 });
 
 test("Login failed with incorrect credentials", async () => {
-  render(<Login />);
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
 
   const usernameInput = screen.getByLabelText("Username:");
   const passwordInput = screen.getByLabelText("Password:");

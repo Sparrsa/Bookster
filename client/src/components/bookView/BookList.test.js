@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { BookList } from "./BookList";
 
 test("Show all books on page", async () => {
@@ -9,30 +9,40 @@ test("Show all books on page", async () => {
   ];
 
   // Mock the fetchBooks function to return the mockBooks data
-  jest.spyOn(global, "fetch").mockImplementation(() =>
-    Promise.resolve({
-      json: () => Promise.resolve({ books: mockBooks }),
-    })
-  );
-
-  // Render the BookList component
-  let container;
-  await act(async () => {
-    container = render(<BookList />).container;
+  global.fetch = jest.fn().mockResolvedValue({
+    json: () => Promise.resolve({ books: mockBooks }),
   });
 
+  render(<BookList />);
+
+  await waitForBooksToBeDisplayed();
+
   // Check if the books are displayed on the page
-  expect(container).toHaveTextContent("Book 1");
-  expect(container).toHaveTextContent("Author: Author 1");
-  expect(container).toHaveTextContent("Availability: 5");
+  expect(screen.getByText("Book 1")).toBeInTheDocument();
+  expect(
+    screen.getByText((content, element) => {
+      return element.textContent.includes("Author 1");
+    })
+  ).toBeInTheDocument();
+  expect(screen.getByText("5 left")).toBeInTheDocument();
 
-  expect(container).toHaveTextContent("Book 2");
-  expect(container).toHaveTextContent("Author: Author 2");
-  expect(container).toHaveTextContent("Availability: 3");
+  expect(screen.getByText("Book 2")).toBeInTheDocument();
+  expect(
+    screen.getByText((content, element) => {
+      return element.textContent.includes("Author 2");
+    })
+  ).toBeInTheDocument();
+  expect(screen.getByText("3 left")).toBeInTheDocument();
 
-  expect(container).toHaveTextContent("Book 3");
-  expect(container).toHaveTextContent("Author: Author 3");
-  expect(container).toHaveTextContent("Availability: 8");
+  expect(screen.getByText("Book 3")).toBeInTheDocument();
+  expect(
+    screen.getByText((content, element) => {
+      return (
+        element.textContent.includes("Author:") &&
+        element.textContent.includes("Author 3")
+      );
+    })
+  ).toBeInTheDocument();
 
   // Restore the original implementation of fetch
   global.fetch.mockRestore();
@@ -45,37 +55,34 @@ test("Filter books by search query", async () => {
     { id: 3, title: "Book 3", author: "Author 3", quantity: 8 },
   ];
 
-  jest.spyOn(global, "fetch").mockImplementation(() =>
-    Promise.resolve({
-      json: () => Promise.resolve({ books: mockBooks }),
-    })
-  );
+  global.fetch = jest.fn().mockResolvedValue({
+    json: () => Promise.resolve({ books: mockBooks }),
+  });
 
   render(<BookList />);
 
-  // Check if all books are displayed initially
+  await waitForBooksToBeDisplayed();
+
   expect(screen.getByText("Book 1")).toBeInTheDocument();
   expect(screen.getByText("Book 2")).toBeInTheDocument();
   expect(screen.getByText("Book 3")).toBeInTheDocument();
 
-  // Search for "Book 2"
   fireEvent.change(screen.getByPlaceholderText("Search for books"), {
     target: { value: "Book 2" },
   });
 
-  // Check if only "Book 2" is displayed
-  expect(screen.getByText("Book 2")).toBeInTheDocument();
-  expect(screen.queryByText("Book 1")).toBeNull();
-  expect(screen.queryByText("Book 3")).toBeNull();
+  await waitForFilteredBooksToBeDisplayed("Book 2");
 
-  // Restore the original implementation of fetch
+  expect(screen.queryByText("Book 1")).not.toBeInTheDocument();
+  expect(screen.getByText("Book 2")).toBeInTheDocument();
+  expect(screen.queryByText("Book 3")).not.toBeInTheDocument();
+
   global.fetch.mockRestore();
 });
 
 test("Sign out", () => {
-  const removeItemMock = jest.fn(); // Create a mock function instead of a spy
+  const removeItemMock = jest.fn();
 
-  // Mock the localStorage.removeItem function
   Object.defineProperty(window, "localStorage", {
     value: {
       removeItem: removeItemMock,
@@ -85,9 +92,23 @@ test("Sign out", () => {
 
   render(<BookList />);
 
-  // Click the "Sign Out" button
   fireEvent.click(screen.getByText("Sign Out"));
 
-  // Check if the "localStorage.removeItem" was called with the correct parameter
   expect(removeItemMock).toHaveBeenCalledWith("accessToken");
 });
+
+// Helper function to wait for books to be displayed
+const waitForBooksToBeDisplayed = async () => {
+  await waitFor(() => {
+    screen.getByText("Book 1");
+    screen.getByText("Book 2");
+    screen.getByText("Book 3");
+  });
+};
+
+// Helper function to wait for filtered books to be displayed
+const waitForFilteredBooksToBeDisplayed = async (filteredBookTitle) => {
+  await waitFor(() => {
+    screen.getByText(filteredBookTitle);
+  });
+};

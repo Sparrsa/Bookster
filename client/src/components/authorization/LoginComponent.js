@@ -1,10 +1,12 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+  const navigate = useNavigate();
 
   const loginUser = async () => {
     try {
@@ -46,11 +48,11 @@ export function Login() {
   localStorage.getItem("accessToken");
 
   return (
-    <div className="login-container">
+    <div className="auth-container">
       <div className="logo-container">
         <h2 className="login-logo">Login</h2>
       </div>
-      <form onSubmit={handleSubmit} className="login-form-container">
+      <form onSubmit={handleSubmit} className="auth-form-container">
         <div className="input-container">
           <label className="form-label" htmlFor="username-input">
             Username:
@@ -75,12 +77,15 @@ export function Login() {
             className="form-input"
           />
         </div>
-        <p className="register-btn">
+        <p className="switch-form-btn">
           No account? Sign up <a href="/register">here!</a>
         </p>
 
         <button className="submit-btn" type="submit">
           Sign in
+        </button>
+        <button className="submit-btn" onClick={() => navigate("/booksGuest")}>
+          Proceed as guest user
         </button>
 
         {loginStatus === "success" && <p>Successfully signed in</p>}

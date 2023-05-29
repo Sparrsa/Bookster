@@ -1,0 +1,79 @@
+.book-item {
+    display: flex;
+    margin: 1em;
+    justify-content: space-between;
+}
+
+.item-container{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+}
+
+.order-container{
+    
+}
+
+.book-title{
+    background-color: aliceblue;
+    border: 1px solid black;
+    max-width: 10em;
+    min-width: 10em;
+}
+
+.author {
+    background-color: aliceblue;
+    max-width: 10em;
+    border: 1px solid black;
+
+}
+
+.availability {
+    background-color: aliceblue;
+    max-width: 10em;
+
+    border: 1px solid black;
+
+}
+
+.column-header{
+    font-size: 1.8rem;
+    font-weight: 500;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.order-container{
+    display: flex;
+}
+
+.amount-btn-container{
+    display: flex;
+}
+
+.amount-btn-container button {
+    max-height: 2em;
+    margin: 0 1em 0 1em;
+}
+
+.order-btn-container{
+    display: flex;
+    margin-left: 2em;
+}
+
+.order-btn-container{
+    min-height: 1.5em;
+    max-height: 1.5em;
+}
+
+.library-container{
+    position: relative;
+}
+
+.user-field{
+    position: absolute;
+    right: 1em;
+    top: -4em;
+}

@@ -40,37 +40,53 @@ export function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <label htmlFor="username-input">Username:</label>
-      <input
-        id="username-input"
-        type="text"
-        value={username}
-        onChange={handleUsernameChange}
-      />
+    <div className="auth-container">
+      <div className="logo-container">
+        <h2 className="login-logo">Register</h2>
+      </div>
+      <form onSubmit={handleSubmit} className="auth-form-container">
+        <div className="input-container">
+          <label htmlFor="username-input" className="form-label">
+            Username:
+          </label>
+          <input
+            id="username-input"
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+            className="form-input"
+          />
+        </div>
+        <div className="input-container">
+          <label htmlFor="password-input" className="form-label">
+            Password:
+          </label>
+          <input
+            id="password-input"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            className="form-input"
+          />
+        </div>
+        <p className="switch-form-btn">
+          Already have an account? Sign in <a href="/login">here!</a>
+        </p>
+        <button type="submit" className="submit-btn">
+          Register new account
+        </button>
 
-      <label htmlFor="password-input">Password:</label>
-      <input
-        id="password-input"
-        type="password"
-        value={password}
-        onChange={handlePasswordChange}
-      />
+        {registrationStatus === "success" && (
+          <p>Account successfully created</p>
+        )}
 
-      <button type="submit">Register new account</button>
-      <p>
-        Already have an account? Sign in <a href="/login">here!</a>
-      </p>
-
-      {registrationStatus === "success" && <p>Account successfully created</p>}
-
-      {registrationStatus === "failure" && (
-        <p>Registration failed. Please try again</p>
-      )}
-      {registrationStatus === "Invalid length" && (
-        <p>Username and password must be at least 4 characters long</p>
-      )}
-    </form>
+        {registrationStatus === "failure" && (
+          <p>Registration failed. Please try again</p>
+        )}
+        {registrationStatus === "Invalid length" && (
+          <p>Username and password must be at least 4 characters long</p>
+        )}
+      </form>
+    </div>
   );
 }

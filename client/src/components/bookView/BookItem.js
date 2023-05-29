@@ -21,16 +21,23 @@ export function BookItem({ book, handleOrderBook }) {
   };
 
   return (
-    <div>
-      <h2>{book.title}</h2>
-      <p>Author: {book.author}</p>
-      <p>Availability: {book.quantity} Left</p>
-      <div>
-        <button onClick={handleDecrease}>-</button>
-        <p>{orderedQuantity}</p>
-        <button onClick={handleIncrease}>+</button>
+    <div className="book-item">
+      <div className="item-container">
+        <h2 className="book-title">{book.title}</h2>
+
+        <p className="author">{book.author}</p>
+        <p className="availability">{book.quantity} Left</p>
       </div>
-      <button onClick={handleOrder}>Order</button>
+      <div className="order-container">
+        <div className="amount-btn-container">
+          <button onClick={handleDecrease}>-</button>
+          <p>{orderedQuantity}</p>
+          <button onClick={handleIncrease}>+</button>
+        </div>
+        <div className="order-btn-container">
+          <button onClick={handleOrder}>Order</button>
+        </div>
+      </div>
     </div>
   );
 }

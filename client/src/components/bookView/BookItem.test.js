@@ -66,8 +66,8 @@ test("Should display book information", async () => {
   expect(screen.getByText("Book 1")).toBeInTheDocument();
 
   // Verify that the book author is displayed
-  expect(screen.getByText("Author: Author 1")).toBeInTheDocument();
+  expect(screen.getByText("Author 1")).toBeInTheDocument();
 
   // Verify that the book availability is displayed
-  expect(screen.getByText("Availability: 5 Left")).toBeInTheDocument();
+  expect(screen.getByText("5 Left")).toBeInTheDocument();
 });

@@ -1,4 +1,4 @@
-.login-container{
+.auth-container{
     display: flex;
     flex-wrap: wrap;
     margin: 5em auto;
@@ -24,7 +24,7 @@
     font-weight: 500;
 }
 
-.login-form-container{
+.auth-form-container{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -59,6 +59,6 @@
 }
 
 
-.register-btn{
+.switch-form-btn{
     font-size: .8rem;
 }

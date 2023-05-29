@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { BookItem } from "./BookItem";
-import { SignOut } from "../abstract/SignOutComponent";
+import { GuestBookItem } from "./GuestBookItem";
 import { SearchBook } from "../abstract/SearchBookComponent";
+import { useNavigate } from "react-router-dom";
 
-export function BookList() {
+export function GuestBookList() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -21,27 +22,6 @@ export function BookList() {
     fetchBooks();
   }, []);
 
-  const handleOrderBook = async (book) => {
-    const accessToken = localStorage.getItem("accessToken");
-
-    const response = await fetch("http://localhost:3000/library/user/books", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({ title: book.title, quantity: book.quantity }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
-    } else {
-      const error = await response.json();
-      console.error("Error ordering book:", error.error);
-    }
-  };
-
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -55,8 +35,8 @@ export function BookList() {
   return (
     <div className="library-container">
       <div className="user-field">
-        <p>Browsing as user</p>
-        <button onClick={SignOut}>Sign Out</button>
+        <p>Browsing as guest..</p>
+        <button onClick={() => navigate("/login")}>Sign in!</button>
       </div>
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
       <div className="column-header">
@@ -66,7 +46,7 @@ export function BookList() {
       </div>
 
       {filteredBooks.map((book) => (
-        <BookItem key={book.id} book={book} handleOrderBook={handleOrderBook} />
+        <GuestBookItem key={book.id} book={book} />
       ))}
     </div>
   );

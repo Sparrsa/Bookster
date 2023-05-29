@@ -2,6 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { Login } from "../components/authorization/LoginComponent";
 import { Register } from "../components/authorization/RegisterComponent";
 import { BookList } from "../components/bookView/BookList";
+import { GuestBookList } from "../components/bookView/GuestBookList";
 
 const routes = [
   {
@@ -22,6 +23,11 @@ const routes = [
     path: "/books",
     element: <BookList />,
     private: true, // Specify that this route requires authentication
+  },
+  {
+    path: "/booksGuest",
+    element: <GuestBookList />,
+    private: false,
   },
 ];
 
