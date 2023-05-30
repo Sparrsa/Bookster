@@ -79,7 +79,6 @@ export function Register() {
         {registrationStatus === "success" && (
           <p>Account successfully created</p>
         )}
-
         {registrationStatus === "failure" && (
           <p>Registration failed. Please try again</p>
         )}

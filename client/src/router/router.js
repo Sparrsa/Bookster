@@ -3,6 +3,7 @@ import { Login } from "../components/authorization/LoginComponent";
 import { Register } from "../components/authorization/RegisterComponent";
 import { BookList } from "../components/bookView/BookList";
 import { GuestBookList } from "../components/bookView/GuestBookList";
+import { AdminView } from "../components/bookView/AdminView";
 
 const routes = [
   {
@@ -28,6 +29,11 @@ const routes = [
     path: "/booksGuest",
     element: <GuestBookList />,
     private: false,
+  },
+  {
+    path: "adminView",
+    element: <AdminView />,
+    private: true,
   },
 ];
 

@@ -1,49 +1,4 @@
-.book-item {
-    display: flex;
-    margin: 1em;
-    justify-content: space-between;
-}
 
-.item-container{
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    align-items: center;
-}
-
-.order-container{
-    
-}
-
-.book-title{
-    background-color: aliceblue;
-    border: 1px solid black;
-    max-width: 10em;
-    min-width: 10em;
-}
-
-.author {
-    background-color: aliceblue;
-    max-width: 10em;
-    border: 1px solid black;
-
-}
-
-.availability {
-    background-color: aliceblue;
-    max-width: 10em;
-
-    border: 1px solid black;
-
-}
-
-.column-header{
-    font-size: 1.8rem;
-    font-weight: 500;
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-evenly;
-}
 
 .order-container{
     display: flex;
@@ -68,6 +23,28 @@
     max-height: 1.5em;
 }
 
+
+.column-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.column {
+    width: 25em;
+    height: 30em;
+}
+
+.column-item{
+    background-color: lightcoral;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0 .2em .2em .2em;
+    padding: 1em;
+    min-height: 2em;
+}
 .library-container{
     position: relative;
 }
@@ -76,4 +53,27 @@
     position: absolute;
     right: 1em;
     top: -4em;
+}
+
+.order-btn{
+    width: 5em;
+    font-size: 1rem;
+    border-radius: 5px;
+    background-color:beige;
+}
+
+.action-btn {
+    width: 5em;
+    height: 2em;
+    margin: 0 1em 0 1em;
+    font-size: 1rem;
+    border-radius: 5px;
+    background-color:beige;
+}
+
+.column-header{
+    background-color:rgb(45, 102, 114);
+    margin: 0em .15em .01em .15em;
+    padding: .5em;
+
 }

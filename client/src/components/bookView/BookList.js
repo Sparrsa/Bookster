@@ -59,15 +59,43 @@ export function BookList() {
         <button onClick={SignOut}>Sign Out</button>
       </div>
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
-      <div className="column-header">
-        <h2>Book title</h2>
-        <h2>Author</h2>
-        <h2>Availability</h2>
-      </div>
+      <div className="column-container">
+        <div className="column">
+          <h2 className="column-header">Book Title</h2>
+          {filteredBooks.map((book) => (
+            <p className="column-item" key={book.id}>
+              {book.title}
+            </p>
+          ))}
+        </div>
+        <div className="column">
+          <h2 className="column-header">Author</h2>
+          {filteredBooks.map((book) => (
+            <p className="column-item" key={book.id}>
+              {book.author}
+            </p>
+          ))}
+        </div>
+        <div className="column">
+          <h2 className="column-header">Available</h2>
+          {filteredBooks.map((book) => (
+            <p className="column-item" key={book.id}>
+              {book.quantity} Left
+            </p>
+          ))}
+        </div>
+        <div className="column">
+          <h2 className="column-header">Order</h2>
 
-      {filteredBooks.map((book) => (
-        <BookItem key={book.id} book={book} handleOrderBook={handleOrderBook} />
-      ))}
+          {filteredBooks.map((book) => (
+            <BookItem
+              key={book.id}
+              book={book}
+              handleOrderBook={handleOrderBook}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

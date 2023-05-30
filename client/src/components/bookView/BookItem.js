@@ -21,13 +21,7 @@ export function BookItem({ book, handleOrderBook }) {
   };
 
   return (
-    <div className="book-item">
-      <div className="item-container">
-        <h2 className="book-title">{book.title}</h2>
-
-        <p className="author">{book.author}</p>
-        <p className="availability">{book.quantity} Left</p>
-      </div>
+    <div className="column-item">
       <div className="order-container">
         <div className="amount-btn-container">
           <button onClick={handleDecrease}>-</button>
@@ -35,7 +29,9 @@ export function BookItem({ book, handleOrderBook }) {
           <button onClick={handleIncrease}>+</button>
         </div>
         <div className="order-btn-container">
-          <button onClick={handleOrder}>Order</button>
+          <button onClick={handleOrder} className="order-btn">
+            Order
+          </button>
         </div>
       </div>
     </div>
