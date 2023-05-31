@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
 import { BookItem } from "./BookItem";
-import { SignOut } from "../abstract/SignOutComponent";
+import { EditBook } from "./AdminEditBook";
+import { AddNewBook } from "./AdminNewBook";
+import { useState, useEffect } from "react";
 import { SearchBook } from "../abstract/SearchComponent";
 
-export function BookList() {
+export function AdminBooks() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/library/books");
-        const data = await response.json();
-        setBooks(data.books);
-      } catch (error) {
-        console.error("Error fetching books:", error);
-      }
-    };
-
     fetchBooks();
   }, []);
+
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/library/books");
+      const data = await response.json();
+      setBooks(data.books);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
 
   const handleOrderBook = async (book) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -42,6 +43,29 @@ export function BookList() {
     }
   };
 
+  const handleDeleteBook = async (book) => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    const response = await fetch("http://localhost:3000/admin/books", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(book),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      // Update the books state to reflect the deletion
+      setBooks((prevBooks) => prevBooks.filter((b) => b.title !== book.title));
+    } else {
+      const error = await response.json();
+      console.error("Error deleting book:", error.error);
+    }
+  };
+
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -53,11 +77,8 @@ export function BookList() {
     : books;
 
   return (
-    <div className="library-container">
-      <div className="user-field">
-        <p>Browsing as user</p>
-        <button onClick={SignOut}>Sign Out</button>
-      </div>
+    <>
+      <AddNewBook />
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
       <div className="column-container">
         <div className="column">
@@ -77,7 +98,7 @@ export function BookList() {
           ))}
         </div>
         <div className="column">
-          <h2 className="column-header">Available</h2>
+          <h2 className="column-header">Availability</h2>
           {filteredBooks.map((book) => (
             <p className="column-item" key={book.id}>
               {book.quantity} Left
@@ -86,7 +107,6 @@ export function BookList() {
         </div>
         <div className="column">
           <h2 className="column-header">Order</h2>
-
           {filteredBooks.map((book) => (
             <BookItem
               key={book.id}
@@ -95,7 +115,21 @@ export function BookList() {
             />
           ))}
         </div>
+        <div className="column">
+          <h2 className="column-header">Action</h2>
+          {filteredBooks.map((book) => (
+            <div className="column-item" key={book.id}>
+              <EditBook book={book} />
+
+              <button
+                className="action-btn"
+                onClick={() => handleDeleteBook(book)}>
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

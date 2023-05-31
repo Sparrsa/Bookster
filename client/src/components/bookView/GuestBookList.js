@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SearchBook } from "../abstract/SearchBookComponent";
+import { SearchBook } from "../abstract/SearchComponent";
 import { useNavigate } from "react-router-dom";
 
 export function GuestBookList() {

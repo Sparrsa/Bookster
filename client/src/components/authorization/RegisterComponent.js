@@ -75,7 +75,6 @@ export function Register() {
         <button type="submit" className="submit-btn">
           Register new account
         </button>
-
         {registrationStatus === "success" && (
           <p>Account successfully created</p>
         )}
