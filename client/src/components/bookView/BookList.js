@@ -77,8 +77,10 @@ export function BookList() {
   return (
     <div className="library-container">
       <div className="user-field">
-        <p>Browsing as {loggedInUser}</p>
-        <button onClick={SignOut}>Sign Out</button>
+        <p className="browser-user">Browsing as {loggedInUser}</p>
+        <button className="sign-out-btn" onClick={SignOut}>
+          Sign Out
+        </button>
       </div>
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
       <div className="column-container">

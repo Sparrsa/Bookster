@@ -8,6 +8,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import booksterLogo from "../../assets/bookster1.png";
 
 export function Login() {
   const [username, setUsername] = useState("");
@@ -54,6 +55,7 @@ export function Login() {
   return (
     <div className="auth-container">
       <div className="logo-container">
+        <img className="bookster-logo" alt="booksterlogo" src={booksterLogo} />
         <h2 className="login-logo">Login</h2>
       </div>
       <form onSubmit={handleSubmit} className="auth-form-container">

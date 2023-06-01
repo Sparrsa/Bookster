@@ -88,8 +88,8 @@ export function AdminBooks() {
 
   return (
     <>
-      <AddNewBook />
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
+
       <div className="column-container">
         <div className="column">
           <h2 className="column-header">Book Title</h2>

@@ -13,6 +13,7 @@ import jwt_decode from "jwt-decode";
 
 import { AdminUsers } from "./AdminUsers";
 import { AdminBooks } from "./AdminBooks";
+import { AddNewBook } from "./AdminNewBook";
 
 export function AdminView() {
   const [books, setBooks] = useState([]);
@@ -73,12 +74,26 @@ export function AdminView() {
   return (
     <div className="library-container">
       <div className="user-field">
-        <p>Browsing as {loggedInUser}</p>
-        <button onClick={SignOut}>Sign Out</button>
+        <p className="browser-user">Browsing as {loggedInUser}</p>
+        <button className="sign-out-btn" onClick={SignOut}>
+          Sign Out
+        </button>
       </div>
-      <div>
-        <button onClick={() => handleViewModeChange("books")}>Books</button>
-        <button onClick={() => handleViewModeChange("users")}>Users</button>
+
+      <div className="view-mode-container">
+        <div className="new-book-container">
+          <AddNewBook />
+        </div>
+        <button
+          className="view-mode-btn"
+          onClick={() => handleViewModeChange("books")}>
+          Books
+        </button>
+        <button
+          className="view-mode-btn"
+          onClick={() => handleViewModeChange("users")}>
+          Users
+        </button>
       </div>
       {viewMode === "books" && (
         <>

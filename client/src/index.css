@@ -1,5 +1,8 @@
 
 body {
+  /* background-image: url("./assets/background.png"); */
+  background-color: rgba(218, 236, 250, 0.687);
+  background-size: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -21,7 +24,6 @@ code {
   background-color: aliceblue;
 }
 
-.header{
-  font-size: 2rem;
-  font-weight: 500;
+.bookster-logo{
+  width: 12%;
 }

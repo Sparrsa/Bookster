@@ -32,9 +32,13 @@ export function BookItem({ book, handleOrderBook }) {
     <div className="column-item">
       <div className="order-container">
         <div className="amount-btn-container">
-          <button onClick={handleDecrease}>-</button>
-          <p>{orderedQuantity}</p>
-          <button onClick={handleIncrease}>+</button>
+          <button className="amount-btn" onClick={handleDecrease}>
+            -
+          </button>
+          <p className="ordered-quantity">{orderedQuantity}</p>
+          <button className="amount-btn" onClick={handleIncrease}>
+            +
+          </button>
         </div>
         <div className="order-btn-container">
           <button onClick={handleOrder} className="order-btn">

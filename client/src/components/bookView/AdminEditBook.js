@@ -72,43 +72,51 @@ export function EditBook(bookObject) {
 
   return (
     <>
-      <button onClick={togglePopup}>Edit</button>
+      <button className="action-btn" onClick={togglePopup}>
+        Edit
+      </button>
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
             <h2>Edit Book {bookObject.book.title}</h2>
+            <div className="content-container">
+              <label htmlFor="title">Title:</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={editBook.title}
+                onChange={handleEditedBookChange}
+                placeholder={bookObject.book.title}
+              />
+            </div>
+            <div className="content-container">
+              <label htmlFor="author">Author:</label>
+              <input
+                type="text"
+                id="author"
+                name="author"
+                value={editBook.author}
+                onChange={handleEditedBookChange}
+                placeholder={bookObject.book.author}
+              />
+            </div>
+            <div className="content-container">
+              <label htmlFor="quantity">Quantity:</label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                value={editBook.quantity}
+                onChange={handleEditedBookChange}
+                placeholder={bookObject.book.quantity}
+              />
+            </div>
             {updateStatus && (
               <div className={updateStatus.success ? "success" : "error"}>
                 {updateStatus.message}
               </div>
             )}
-            <label htmlFor="title">Title:</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={editBook.title}
-              onChange={handleEditedBookChange}
-              placeholder={bookObject.book.title}
-            />
-            <label htmlFor="author">Author:</label>
-            <input
-              type="text"
-              id="author"
-              name="author"
-              value={editBook.author}
-              onChange={handleEditedBookChange}
-              placeholder={bookObject.book.author}
-            />
-            <label htmlFor="quantity">Quantity:</label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              value={editBook.quantity}
-              onChange={handleEditedBookChange}
-              placeholder={bookObject.book.quantity}
-            />
             <div className="popup-buttons">
               <button onClick={() => handleEditBook(bookObject.book)}>
                 Save

@@ -5,6 +5,7 @@ export function SearchBook({ searchQuery, handleSearch }) {
       value={searchQuery}
       onChange={handleSearch}
       placeholder="Search for books"
+      className="search-field"
     />
   );
 }
@@ -16,6 +17,7 @@ export function SearchUser({ searchQuery, handleSearch }) {
       value={searchQuery}
       onChange={handleSearch}
       placeholder="Search by username.."
+      className="search-field"
     />
   );
 }

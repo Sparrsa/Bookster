@@ -29,11 +29,12 @@ export function DeleteBookPopup({ book, handleDeleteBook }) {
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Delete Book</h2>
-            <p>Are you sure you want to delete the book "{book.title}"?</p>
-            <div className="popup-buttons">
-              <button onClick={confirmDelete}>Yes</button>
-              <button onClick={togglePopup}>No</button>
+            <div className="content-container">
+              <p>Are you sure you want to delete the book "{book.title}"?</p>
+              <div className="popup-buttons">
+                <button onClick={confirmDelete}>Yes</button>
+                <button onClick={togglePopup}>No</button>
+              </div>
             </div>
           </div>
         </div>
@@ -56,15 +57,18 @@ export function DeleteUserPopup({ user, handleDeleteUser }) {
 
   return (
     <>
-      <button onClick={togglePopup}>Delete</button>
+      <button className="action-btn" onClick={togglePopup}>
+        Delete
+      </button>
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Delete User</h2>
-            <p>Are you sure you want to delete the user "{user.username}"?</p>
-            <div className="popup-buttons">
-              <button onClick={confirmDelete}>Yes</button>
-              <button onClick={togglePopup}>No</button>
+            <div className="content-container">
+              <p>Are you sure you want to delete the user "{user.username}"?</p>
+              <div className="popup-buttons">
+                <button onClick={confirmDelete}>Yes</button>
+                <button onClick={togglePopup}>No</button>
+              </div>
             </div>
           </div>
         </div>
@@ -87,18 +91,21 @@ export function PromoteUserPopup({ user, handlePromoteUser }) {
 
   return (
     <>
-      <button onClick={togglePopup}>Promote</button>
+      <button className="action-btn" onClick={togglePopup}>
+        Promote
+      </button>
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Promote User</h2>
-            <p>
-              Are you sure you want to promote the user "{user.username}" to the
-              ADMIN role?
-            </p>
-            <div className="popup-buttons">
-              <button onClick={confirmPromote}>Yes</button>
-              <button onClick={togglePopup}>No</button>
+            <div className="content-container">
+              <p>
+                Are you sure you want to promote the user "{user.username}" to
+                the ADMIN role?
+              </p>
+              <div className="popup-buttons">
+                <button onClick={confirmPromote}>Yes</button>
+                <button onClick={togglePopup}>No</button>
+              </div>
             </div>
           </div>
         </div>

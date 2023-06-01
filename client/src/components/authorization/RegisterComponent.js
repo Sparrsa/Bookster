@@ -8,6 +8,7 @@
  */
 
 import { useState } from "react";
+import booksterLogo from "../../assets/bookster1.png";
 
 export function Register() {
   const [username, setUsername] = useState("");
@@ -51,6 +52,7 @@ export function Register() {
   return (
     <div className="auth-container">
       <div className="logo-container">
+        <img className="bookster-logo" alt="booksterlogo" src={booksterLogo} />
         <h2 className="login-logo">Register</h2>
       </div>
       <form onSubmit={handleSubmit} className="auth-form-container">
@@ -78,20 +80,26 @@ export function Register() {
             className="form-input"
           />
         </div>
-        <p className="switch-form-btn">
-          Already have an account? Sign in <a href="/login">here!</a>
-        </p>
+
         <button type="submit" className="submit-btn">
           Register new account
         </button>
+        <p className="switch-form-btn">
+          Already have an account? Sign in <a href="/login">here!</a>
+        </p>
+
         {registrationStatus === "success" && (
-          <p>Account successfully created</p>
+          <p className="status-message">Account successfully created</p>
         )}
         {registrationStatus === "failure" && (
-          <p>Registration failed. Please try again</p>
+          <p className="status-message">
+            Registration failed. Please try again
+          </p>
         )}
         {registrationStatus === "Invalid length" && (
-          <p>Username and password must be at least 4 characters long</p>
+          <p className="status-message">
+            Username and password must be at least 4 characters long
+          </p>
         )}
       </form>
     </div>

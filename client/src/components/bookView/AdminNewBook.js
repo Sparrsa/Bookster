@@ -55,35 +55,43 @@ export function AddNewBook() {
 
   return (
     <>
-      <button onClick={togglePopup}>Add new book</button>
+      <button className="new-book-btn" onClick={togglePopup}>
+        Add new book
+      </button>
       {showPopup && (
         <div className="popup" data-testid="add-new-book-popup">
           <div className="popup-content">
             <h2>Add New Book</h2>
-            <label htmlFor="title">Title:</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={newBook.title}
-              onChange={handleNewBookChange}
-            />
-            <label htmlFor="author">Author:</label>
-            <input
-              type="text"
-              id="author"
-              name="author"
-              value={newBook.author}
-              onChange={handleNewBookChange}
-            />
-            <label htmlFor="quantity">Quantity:</label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              value={newBook.quantity}
-              onChange={handleNewBookChange}
-            />
+            <div className="content-container">
+              <label htmlFor="title">Title: </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={newBook.title}
+                onChange={handleNewBookChange}
+              />
+            </div>
+            <div className="content-container">
+              <label htmlFor="author">Author: </label>
+              <input
+                type="text"
+                id="author"
+                name="author"
+                value={newBook.author}
+                onChange={handleNewBookChange}
+              />
+            </div>
+            <div className="content-container">
+              <label htmlFor="quantity">Quantity: </label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                value={newBook.quantity}
+                onChange={handleNewBookChange}
+              />
+            </div>
             <div className="popup-buttons">
               <button onClick={handleAddNewBook}>Save</button>
               <button onClick={togglePopup}>Cancel</button>
