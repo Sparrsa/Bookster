@@ -1,9 +1,16 @@
+/**
+ * Author: William Sparr
+ * Date 25e May
+ *
+ * This file contains two tests for the Login component.
+ * The first test checks the successful login scenario, including the storage of the JWT token, while the second test verifies the handling of failed login attempts with incorrect credentials.
+ */
+
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Login } from "./LoginComponent";
 import { MemoryRouter } from "react-router-dom";
 
 test("Should login a user and store the JWT token", async () => {
-  // Testar inlogg med en mockfunction
   jest.spyOn(global, "fetch").mockImplementationOnce(() =>
     Promise.resolve({
       ok: true,
@@ -27,10 +34,8 @@ test("Should login a user and store the JWT token", async () => {
   const successMessage = await screen.findByText("Successfully signed in");
   expect(successMessage).toBeInTheDocument();
 
-  // Check if the JWT token is stored in localStorage
   expect(localStorage.getItem("accessToken")).toEqual("mocked-access-token");
 
-  // Restore the original fetch function
   global.fetch.mockRestore();
 });
 

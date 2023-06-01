@@ -1,9 +1,18 @@
+/**
+ * Author William Sparr
+ * Date 1st June
+ *
+ * This file sets up the routing configuration for the application using React Router. It defines a list of routes and provides functions to check authentication and user roles.
+ * Overall, this file sets up the routing configuration for the application, checks authentication and user roles, and renders the appropriate components based on the defined routes.
+ */
+
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Login } from "../components/authorization/LoginComponent";
 import { Register } from "../components/authorization/RegisterComponent";
 import { BookList } from "../components/bookView/BookList";
 import { GuestBookList } from "../components/bookView/GuestBookList";
 import { AdminView } from "../components/bookView/AdminView";
+import jwt_decode from "jwt-decode";
 
 const routes = [
   {
@@ -23,7 +32,7 @@ const routes = [
   {
     path: "/books",
     element: <BookList />,
-    private: true, // Specify that this route requires authentication
+    private: true,
   },
   {
     path: "/booksGuest",
@@ -37,15 +46,22 @@ const routes = [
   },
 ];
 
-// Check if the user is authenticated
 const isAuthenticated = () => {
   const accessToken = localStorage.getItem("accessToken");
-  return !!accessToken; // Returns true if accessToken exists
+  return !!accessToken;
 };
 
-// Render the routes, applying the redirect logic for private routes
+const hasRole = (requiredRole) => {
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) {
+    const decodedToken = jwt_decode(accessToken);
+    const userRole = decodedToken.role;
+    return userRole === requiredRole;
+  }
+  return false;
+};
+
 const renderRoutes = () => {
-  //---------------kanske måste skriva test till den här?--------------Lägga in i en abstract mapp??
   return (
     <Routes>
       {routes.map((route, index) => {
@@ -53,7 +69,6 @@ const renderRoutes = () => {
         const isAuthRequired = isPrivate && !isAuthenticated();
 
         if (authRedirect && isAuthenticated()) {
-          // Redirect to BookList if already logged in
           return (
             <Route
               key={index}

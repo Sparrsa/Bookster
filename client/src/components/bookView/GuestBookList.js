@@ -1,3 +1,11 @@
+/**
+ * Author: William Sparr
+ * Date: 31st May
+ *
+ * The GuestBookList component represents a book list view for guest users.
+ *  It fetches and displays a list of books, allows users to search for books, and provides an option to sign in by navigating to the login page.
+ */
+
 import { useState, useEffect } from "react";
 import { SearchBook } from "../abstract/SearchComponent";
 import { useNavigate } from "react-router-dom";

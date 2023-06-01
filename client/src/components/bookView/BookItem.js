@@ -1,3 +1,11 @@
+/**
+ * /**
+ * Author: William Sparr
+ * Date 31st May
+ * The BookItem component represents an individual book item in the book list.
+ *  It provides functionality to decrease/increase the quantity of books to order, and allows the user to place an order for the specified quantity of the book.
+ */
+
 import React, { useState } from "react";
 
 export function BookItem({ book, handleOrderBook }) {

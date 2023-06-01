@@ -1,5 +1,12 @@
+/**
+ * Author: William Sparr
+ * Date 25e May
+ *
+ * This file is responsible for handling the Login functionality of the page.
+ * Overall, this component handles user input, performs authentication requests to a specified endpoint, and provides feedback to the user based on the login status.
+ */
+
 import { useState } from "react";
-// import { useHistory } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export function Login() {
@@ -22,6 +29,7 @@ export function Login() {
         const { accessToken } = await response.json();
         localStorage.setItem("accessToken", accessToken);
         setLoginStatus("success");
+        window.location.reload();
       } else {
         setLoginStatus("failure");
       }
@@ -41,11 +49,7 @@ export function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     loginUser();
-    // window.location.reload();
   };
-
-  // Retrieve the accessToken from localStorage
-  localStorage.getItem("accessToken");
 
   return (
     <div className="auth-container">

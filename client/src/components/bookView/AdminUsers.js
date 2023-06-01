@@ -1,5 +1,14 @@
+/**
+ * Author: William Sparr
+ * Date: 1st June
+ *
+ *  This component is responsible for managing user data in an administrative interface.
+ *  Overall, the AdminUsers component provides an interface to view, search, delete, and promote users in an administrative context.
+ */
+
 import React, { useState, useEffect } from "react";
 import { SearchUser } from "../abstract/SearchComponent";
+import { DeleteUserPopup, PromoteUserPopup } from "./Popup";
 
 export function AdminUsers() {
   const [users, setUsers] = useState([]);
@@ -24,33 +33,27 @@ export function AdminUsers() {
   };
 
   const handleDeleteUser = async (user) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this user?"
-    );
+    const accessToken = localStorage.getItem("accessToken");
 
-    if (confirmed) {
-      const accessToken = localStorage.getItem("accessToken");
+    const response = await fetch("http://localhost:3000/admin/users", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(user),
+    });
 
-      const response = await fetch("http://localhost:3000/admin/users", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(user),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.message);
-        // Update the users state to reflect the deletion
-        setUsers((prevUsers) =>
-          prevUsers.filter((u) => u.username !== user.username)
-        );
-      } else {
-        const error = await response.json();
-        console.error("Error deleting user:", error.error);
-      }
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+     
+      setUsers((prevUsers) =>
+        prevUsers.filter((u) => u.username !== user.username)
+      );
+    } else {
+      const error = await response.json();
+      console.error("Error deleting user:", error.error);
     }
   };
 
@@ -133,12 +136,14 @@ export function AdminUsers() {
           <h2 className="column-header">Action</h2>
           {filteredUsers.map((user) => (
             <div className="column-item" key={user.username}>
-              <button onClick={() => handleDeleteUser(user)}>Delete</button>
-              {user.role !== "admin" ? (
-                <button onClick={() => handlePromoteUser(user)}>Promote</button>
-              ) : (
-                <button disabled>Admin</button>
-              )}
+              <DeleteUserPopup
+                user={user}
+                handleDeleteUser={handleDeleteUser}
+              />
+              <PromoteUserPopup
+                user={user}
+                handlePromoteUser={handlePromoteUser}
+              />
             </div>
           ))}
         </div>

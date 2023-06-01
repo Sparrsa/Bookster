@@ -1,3 +1,11 @@
+/**
+ * Author: William Sparr
+ * Date 25e may
+ *
+ *  This file contains two tests for the Register component.
+ *  The first test checks the successful user registration scenario, while the second test verifies the handling of registration with username and password lengths below 4 characters.
+ */
+
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Register } from "./RegisterComponent";
 

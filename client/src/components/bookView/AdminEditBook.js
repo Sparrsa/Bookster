@@ -1,11 +1,19 @@
+/**
+ * Author: William Sparr
+ * Date: 1st June
+ *
+ *  This component provides functionality to edit a book's details.
+ *  It renders an "Edit" button that, when clicked, opens a popup window. Inside the popup, the admin can modify the title, author, and quantity of the book. The component communicates with the server to update the book details.
+ */
+
 import { useState } from "react";
 
-export function EditBook(book) {
+export function EditBook(bookObject) {
   const [showPopup, setShowPopup] = useState(false);
   const [editBook, setEditBook] = useState({
-    title: book.title || "",
-    author: book.author || "",
-    quantity: book.quantity || 0,
+    title: bookObject.title || "",
+    author: bookObject.author || "",
+    quantity: bookObject.quantity || 0,
   });
   const [updateStatus, setUpdateStatus] = useState(null);
 
@@ -41,7 +49,7 @@ export function EditBook(book) {
           },
         }),
       });
-      console.log(book);
+      console.log(bookObject);
 
       if (response.ok) {
         const data = await response.json();
@@ -68,7 +76,7 @@ export function EditBook(book) {
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Edit Book {book.title}</h2>
+            <h2>Edit Book {bookObject.book.title}</h2>
             {updateStatus && (
               <div className={updateStatus.success ? "success" : "error"}>
                 {updateStatus.message}
@@ -81,7 +89,7 @@ export function EditBook(book) {
               name="title"
               value={editBook.title}
               onChange={handleEditedBookChange}
-              placeholder={book.book.title}
+              placeholder={bookObject.book.title}
             />
             <label htmlFor="author">Author:</label>
             <input
@@ -90,7 +98,7 @@ export function EditBook(book) {
               name="author"
               value={editBook.author}
               onChange={handleEditedBookChange}
-              placeholder={book.book.author}
+              placeholder={bookObject.book.author}
             />
             <label htmlFor="quantity">Quantity:</label>
             <input
@@ -99,10 +107,12 @@ export function EditBook(book) {
               name="quantity"
               value={editBook.quantity}
               onChange={handleEditedBookChange}
-              placeholder={book.book.quantity}
+              placeholder={bookObject.book.quantity}
             />
             <div className="popup-buttons">
-              <button onClick={() => handleEditBook(book.book)}>Save</button>
+              <button onClick={() => handleEditBook(bookObject.book)}>
+                Save
+              </button>
               <button onClick={togglePopup}>Cancel</button>
             </div>
           </div>

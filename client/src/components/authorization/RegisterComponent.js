@@ -1,3 +1,12 @@
+/**
+ * Author: William Sparr
+ * Date 25e May
+ *
+ * This file is responsible for handling the Login functionality of the page.
+ * Overall, this component handles user input, performs registration requests to a specified endpoint, and provides feedback to the user based on the registration status.
+ *
+ */
+
 import { useState } from "react";
 
 export function Register() {

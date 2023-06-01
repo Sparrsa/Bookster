@@ -7,7 +7,7 @@ export function App() {
       <header className="header-container">
         <h1 className="header">Bookster</h1>
       </header>
-      <Router>{renderRoutes()}</Router>;
+      <Router>{renderRoutes()}</Router>
     </>
   );
 }

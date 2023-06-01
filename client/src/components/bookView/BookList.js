@@ -1,11 +1,22 @@
+/**
+ * Author: William Sparr
+ * Date 31st May
+ *
+ * This file handles the functionality of displaying and interacting with a list of books.
+ * Overall, this component fetches and displays a list of books, allows users to search for specific books, and provides the functionality to order books if a user is logged in.
+
+ */
+
 import { useState, useEffect } from "react";
 import { BookItem } from "./BookItem";
 import { SignOut } from "../abstract/SignOutComponent";
 import { SearchBook } from "../abstract/SearchComponent";
+import jwt_decode from "jwt-decode";
 
 export function BookList() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState("");
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -19,6 +30,16 @@ export function BookList() {
     };
 
     fetchBooks();
+  }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      const decodedToken = jwt_decode(accessToken);
+      const username = decodedToken.username;
+      setLoggedInUser(username);
+    }
   }, []);
 
   const handleOrderBook = async (book) => {
@@ -40,6 +61,7 @@ export function BookList() {
       const error = await response.json();
       console.error("Error ordering book:", error.error);
     }
+    window.location.reload();
   };
 
   const handleSearch = (event) => {
@@ -55,7 +77,7 @@ export function BookList() {
   return (
     <div className="library-container">
       <div className="user-field">
-        <p>Browsing as user</p>
+        <p>Browsing as {loggedInUser}</p>
         <button onClick={SignOut}>Sign Out</button>
       </div>
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />

@@ -1,8 +1,18 @@
+/**
+ *  Author: William Sparr
+    Date: 1st June
+
+    This component renders the list of books in the admin view. 
+    It fetches the books from the server and it provides functionality to order books, delete books, and edit book details.
+    The component utilizes child components to handle specific book-related actions.
+ */
+
 import { BookItem } from "./BookItem";
 import { EditBook } from "./AdminEditBook";
 import { AddNewBook } from "./AdminNewBook";
 import { useState, useEffect } from "react";
 import { SearchBook } from "../abstract/SearchComponent";
+import { DeleteBookPopup } from "./Popup";
 
 export function AdminBooks() {
   const [books, setBooks] = useState([]);
@@ -41,6 +51,7 @@ export function AdminBooks() {
       const error = await response.json();
       console.error("Error ordering book:", error.error);
     }
+    window.location.reload();
   };
 
   const handleDeleteBook = async (book) => {
@@ -58,7 +69,6 @@ export function AdminBooks() {
     if (response.ok) {
       const data = await response.json();
       console.log(data.message);
-      // Update the books state to reflect the deletion
       setBooks((prevBooks) => prevBooks.filter((b) => b.title !== book.title));
     } else {
       const error = await response.json();
@@ -121,11 +131,10 @@ export function AdminBooks() {
             <div className="column-item" key={book.id}>
               <EditBook book={book} />
 
-              <button
-                className="action-btn"
-                onClick={() => handleDeleteBook(book)}>
-                Delete
-              </button>
+              <DeleteBookPopup
+                book={book}
+                handleDeleteBook={handleDeleteBook}
+              />
             </div>
           ))}
         </div>
