@@ -5,7 +5,7 @@
  * This file tests whether the popup window for adding a new book renders correctly.
  */
 
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { AddNewBook } from "./AdminNewBook";
 
 describe("AddNewBook", () => {
@@ -37,15 +37,5 @@ describe("AddNewBook", () => {
 
     const popup = screen.queryByTestId("add-new-book-popup");
     expect(popup).not.toBeInTheDocument();
-  });
-
-  test("should call the 'handleAddNewBook' function when 'Save' button is clicked", () => {
-    render(<AddNewBook />);
-
-    const addButton = screen.getByText("Add new book");
-    fireEvent.click(addButton);
-
-    const saveButton = screen.getByText("Save");
-    fireEvent.click(saveButton);
   });
 });

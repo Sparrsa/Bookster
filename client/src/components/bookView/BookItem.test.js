@@ -13,7 +13,6 @@ import { BookItem } from "./BookItem";
 
 test("Should order books", async () => {
   const book = {
-    id: 1,
     title: "Book 1",
     author: "Author 1",
     quantity: 5,
@@ -38,7 +37,6 @@ test("Should order books", async () => {
 
 test("Should not call handleOrderBook when ordered quantity is zero", async () => {
   const book = {
-    id: 1,
     title: "Book 1",
     author: "Author 1",
     quantity: 5,

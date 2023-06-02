@@ -52,7 +52,6 @@ export function EditBook(bookObject) {
       console.log(bookObject);
 
       if (response.ok) {
-        const data = await response.json();
         window.location.reload();
       } else {
         const error = await response.json();

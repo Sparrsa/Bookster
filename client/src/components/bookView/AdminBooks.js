@@ -9,7 +9,6 @@
 
 import { BookItem } from "./BookItem";
 import { EditBook } from "./AdminEditBook";
-import { AddNewBook } from "./AdminNewBook";
 import { useState, useEffect } from "react";
 import { SearchBook } from "../abstract/SearchComponent";
 import { DeleteBookPopup } from "./Popup";
