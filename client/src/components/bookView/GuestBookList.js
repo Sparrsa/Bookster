@@ -43,7 +43,11 @@ export function GuestBookList() {
     <div className="library-container">
       <div className="user-field">
         <p>Browsing as guest..</p>
-        <button onClick={() => navigate("/login")}>Sign in!</button>
+        <button
+          className="login-navigate-btn"
+          onClick={() => navigate("/login")}>
+          Sign in!
+        </button>
       </div>
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
       <div className="column-container">

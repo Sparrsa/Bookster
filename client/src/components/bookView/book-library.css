@@ -230,6 +230,24 @@
     transform: scale(1.05);
   }
 
+  .login-navigate-btn{
+    width: 7em;
+    height: 2em;
+    margin-top: .4em;
+    font-size: 1rem;
+    border-radius: 3px;
+    background-color:rgb(84, 58, 161);
+    color: white;
+    border: none;
+
+    transition: transform 0.1s ease-in-out;
+    cursor: pointer
+  }
+
+  .login-navigate-btn:hover{
+    transform: scale(1.05);
+  }
+
 
   .new-book-btn{
     margin-right: .4em;
