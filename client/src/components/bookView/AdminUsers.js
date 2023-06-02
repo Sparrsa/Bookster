@@ -45,9 +45,6 @@ export function AdminUsers() {
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
-     
       setUsers((prevUsers) =>
         prevUsers.filter((u) => u.username !== user.username)
       );
@@ -70,8 +67,6 @@ export function AdminUsers() {
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
       setUsers((prevUsers) =>
         prevUsers.map((u) =>
           u.username === user.username ? { ...u, role: "ADMIN" } : u

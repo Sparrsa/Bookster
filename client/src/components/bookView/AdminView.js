@@ -27,7 +27,6 @@ export function AdminView() {
 
     const decodedToken = jwt_decode(accessToken);
     const userRole = decodedToken.role;
-    console.log(userRole);
 
     if (userRole === "USER") {
       localStorage.removeItem("accessToken");

@@ -44,9 +44,13 @@ export function AdminBooks() {
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
-      window.location.reload();
+      setBooks((prevBooks) =>
+        prevBooks.map((prevBook) =>
+          prevBook.title === book.title
+            ? { ...prevBook, quantity: prevBook.quantity - 1 }
+            : prevBook
+        )
+      );
     } else {
       const error = await response.json();
       console.error("Error ordering book:", error.error);
@@ -66,8 +70,6 @@ export function AdminBooks() {
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
       setBooks((prevBooks) => prevBooks.filter((b) => b.title !== book.title));
     } else {
       const error = await response.json();

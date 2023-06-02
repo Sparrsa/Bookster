@@ -39,6 +39,7 @@ export function AddNewBook() {
     });
 
     if (response.ok) {
+      window.location.reload();
     } else {
       const error = await response.json();
       console.error("Error adding book:", error.error);
@@ -51,7 +52,6 @@ export function AddNewBook() {
     });
 
     togglePopup();
-    window.location.reload();
   };
 
   return (

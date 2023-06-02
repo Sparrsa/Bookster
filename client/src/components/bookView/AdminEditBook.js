@@ -49,7 +49,6 @@ export function EditBook(bookObject) {
           },
         }),
       });
-      console.log(bookObject);
 
       if (response.ok) {
         window.location.reload();

@@ -55,13 +55,18 @@ export function BookList() {
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
+      setBooks((prevBooks) =>
+        prevBooks.map((prevBook) =>
+          prevBook.title === book.title
+            ? { ...prevBook, quantity: prevBook.quantity - 1 }
+            : prevBook
+        )
+      );
     } else {
       const error = await response.json();
       console.error("Error ordering book:", error.error);
     }
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleSearch = (event) => {
