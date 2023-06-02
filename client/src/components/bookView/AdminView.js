@@ -81,9 +81,12 @@ export function AdminView() {
       </div>
 
       <div className="view-mode-container">
-        <div className="new-book-container">
-          <AddNewBook />
-        </div>
+        {viewMode === "books" && (
+          <div className="new-book-container">
+            <AddNewBook />
+          </div>
+        )}
+
         <button
           className="view-mode-btn"
           onClick={() => handleViewModeChange("books")}>

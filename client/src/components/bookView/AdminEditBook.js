@@ -53,11 +53,7 @@ export function EditBook(bookObject) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        setUpdateStatus({
-          success: true,
-          message: data.message,
-        });
+        window.location.reload();
       } else {
         const error = await response.json();
         setUpdateStatus({ success: false, message: error.error });

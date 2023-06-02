@@ -33,6 +33,7 @@ const routes = [
     path: "/books",
     element: <BookList />,
     private: true,
+    role: "USER",
   },
   {
     path: "/booksGuest",
@@ -43,6 +44,7 @@ const routes = [
     path: "adminView",
     element: <AdminView />,
     private: true,
+    role: "ADMIN",
   },
 ];
 
@@ -51,12 +53,14 @@ const isAuthenticated = () => {
   return !!accessToken;
 };
 
-const hasRole = (requiredRole) => {
+const hasRole = () => {
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
     const decodedToken = jwt_decode(accessToken);
     const userRole = decodedToken.role;
-    return userRole === requiredRole;
+    if (userRole === "ADMIN") {
+      return true;
+    }
   }
   return false;
 };
@@ -64,9 +68,29 @@ const hasRole = (requiredRole) => {
 const renderRoutes = () => {
   return (
     <Routes>
+      <Route
+        path="/"
+        element={
+          isAuthenticated() ? (
+            <Navigate to="/books" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
       {routes.map((route, index) => {
         const { path, element, private: isPrivate, authRedirect } = route;
         const isAuthRequired = isPrivate && !isAuthenticated();
+
+        if (authRedirect && isAuthenticated() && hasRole()) {
+          return (
+            <Route
+              key={index}
+              path={path}
+              element={<Navigate to="/adminView" replace />}
+            />
+          );
+        }
 
         if (authRedirect && isAuthenticated()) {
           return (

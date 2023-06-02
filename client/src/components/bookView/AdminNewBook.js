@@ -51,6 +51,7 @@ export function AddNewBook() {
     });
 
     togglePopup();
+    window.location.reload();
   };
 
   return (

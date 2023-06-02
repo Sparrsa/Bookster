@@ -47,11 +47,11 @@ export function AdminBooks() {
     if (response.ok) {
       const data = await response.json();
       console.log(data.message);
+      window.location.reload();
     } else {
       const error = await response.json();
       console.error("Error ordering book:", error.error);
     }
-    window.location.reload();
   };
 
   const handleDeleteBook = async (book) => {
@@ -89,7 +89,6 @@ export function AdminBooks() {
   return (
     <>
       <SearchBook searchQuery={searchQuery} handleSearch={handleSearch} />
-
       <div className="column-container">
         <div className="column">
           <h2 className="column-header">Book Title</h2>
